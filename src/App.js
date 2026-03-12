@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Plus, Minus, Info, Trash2, Search, Sparkles, Store, Truck, Droplet, Scissors, Shirt, Home, Wind } from 'lucide-react';
 
 // --- FLYDRY STRUCTURED MASTER CATALOG ---
@@ -109,7 +109,6 @@ export default function FlyDryEstimator() {
       }
       return [...prev, { ...item, qty: 1 }];
     });
-    // Clear search after adding if they used search
     if (searchQuery) setSearchQuery('');
   };
 
@@ -158,7 +157,6 @@ export default function FlyDryEstimator() {
         discountAmount = val;
       }
     }
-    // Ensure discount doesn't exceed the subtotal itself
     discountAmount = Math.min(discountAmount, subtotal);
 
     return {
@@ -181,7 +179,7 @@ export default function FlyDryEstimator() {
       <div className="flex-1 flex flex-col bg-gray-50 border-r border-gray-200">
         
         {/* Header & Search */}
-        <div className="bg-[#114232] px-6 py-6 shadow-md z-10">
+        <div className="bg-[#114232] px-6 py-6 shadow-md z-10 shrink-0">
           <h2 className="text-white font-bold text-xl sm:text-2xl tracking-tight mb-4">Select services to see a guided price</h2>
           <div className="relative">
             <Search className="absolute left-3 top-3.5 text-gray-400" size={18} />
@@ -197,7 +195,7 @@ export default function FlyDryEstimator() {
 
         {/* Category Tabs (Hide if searching) */}
         {!searchQuery && (
-          <div className="flex px-4 pt-4 gap-2 bg-gray-50 border-b border-gray-200 overflow-x-auto">
+          <div className="flex px-4 pt-4 gap-2 bg-gray-50 border-b border-gray-200 overflow-x-auto shrink-0">
             <button 
               onClick={() => setActiveCategory('cleaning')}
               className={`flex items-center gap-2 px-5 py-3 font-bold text-sm rounded-t-xl transition-colors whitespace-nowrap ${activeCategory === 'cleaning' ? 'bg-white text-[#114232] border-t border-l border-r border-gray-200 shadow-[0_-2px_4px_rgba(0,0,0,0.02)]' : 'text-gray-500 hover:text-gray-800'}`}
@@ -388,43 +386,47 @@ export default function FlyDryEstimator() {
 
                   return (
                     <div key={item.id} className="group border border-gray-200 bg-white rounded-xl p-3 shadow-sm hover:border-[#C5A059] transition-colors relative overflow-hidden">
-                    <div className="flex justify-between items-start mb-3 pl-2">
-                      <div>
-                        {isRepair && <span className="text-[9px] font-bold text-[#C5A059] uppercase tracking-wider block mb-0.5">Alteration</span>}
-                        {isIroning && <span className="text-[9px] font-bold text-purple-500 uppercase tracking-wider block mb-0.5">Ironing</span>}
-                        <span className="text-[14px] font-bold text-gray-800">
-                          {item.name}
-                          {item.startingPrice && <span className="text-[10px] text-[#C5A059] ml-1.5 font-bold uppercase">(Starts at)</span>}
-                        </span>
-                      </div>
-                      <button onClick={() => removeItem(item.id)} className="text-gray-300 hover:text-red-500 transition-colors p-1">
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                    
-                    <div className="flex justify-between items-center pl-2">
-                      <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-1 border border-gray-200">
-                        <button onClick={() => updateQty(item.id, -1)} className="p-1 text-gray-400 hover:text-[#114232]"><Minus size={14} /></button>
-                        <span className="text-sm font-bold w-5 text-center">{item.qty}</span>
-                        <button onClick={() => updateQty(item.id, 1)} className="p-1 text-gray-400 hover:text-[#114232]"><Plus size={14} /></button>
+                      
+                      {/* Category Color Bar */}
+                      <div className={`absolute left-0 top-0 bottom-0 w-1 ${isRepair ? 'bg-[#C5A059]' : isHome ? 'bg-blue-400' : isIroning ? 'bg-purple-400' : 'bg-[#114232]'}`}></div>
+
+                      <div className="flex justify-between items-start mb-3 pl-2">
+                        <div>
+                          {isRepair && <span className="text-[9px] font-bold text-[#C5A059] uppercase tracking-wider block mb-0.5">Alteration</span>}
+                          {isIroning && <span className="text-[9px] font-bold text-purple-500 uppercase tracking-wider block mb-0.5">Ironing</span>}
+                          <span className="text-[14px] font-bold text-gray-800">
+                            {item.name}
+                            {item.startingPrice && <span className="text-[10px] text-[#C5A059] ml-1.5 font-bold uppercase">(Starts at)</span>}
+                          </span>
+                        </div>
+                        <button onClick={() => removeItem(item.id)} className="text-gray-300 hover:text-red-500 transition-colors p-1">
+                          <Trash2 size={16} />
+                        </button>
                       </div>
                       
-                      <span className="text-lg font-bold text-[#114232]">
-                        {item.startingPrice && <span className="text-sm font-normal text-gray-500 mr-1">From</span>}
-                        £{lineTotal.toFixed(2)}
-                      </span>
-                    </div>
-
-                    {showPromo && (
-                      <div className="mt-3 ml-2 flex items-center gap-1.5 text-[11px] text-[#114232] font-bold bg-[#114232]/10 px-2 py-1 rounded w-max">
-                        <Sparkles size={12} /> {item.bundle.qty} for £{item.bundle.price.toFixed(2)} Applied
+                      <div className="flex justify-between items-center pl-2">
+                        <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-1 border border-gray-200">
+                          <button onClick={() => updateQty(item.id, -1)} className="p-1 text-gray-400 hover:text-[#114232]"><Minus size={14} /></button>
+                          <span className="text-sm font-bold w-5 text-center">{item.qty}</span>
+                          <button onClick={() => updateQty(item.id, 1)} className="p-1 text-gray-400 hover:text-[#114232]"><Plus size={14} /></button>
+                        </div>
+                        
+                        <span className="text-lg font-bold text-[#114232]">
+                          {item.startingPrice && <span className="text-sm font-normal text-gray-500 mr-1">From</span>}
+                          £{lineTotal.toFixed(2)}
+                        </span>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
+
+                      {showPromo && (
+                        <div className="mt-3 ml-2 flex items-center gap-1.5 text-[11px] text-[#114232] font-bold bg-[#114232]/10 px-2 py-1 rounded w-max">
+                          <Sparkles size={12} /> {item.bundle.qty} for £{item.bundle.price.toFixed(2)} Applied
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 
@@ -509,14 +511,12 @@ export default function FlyDryEstimator() {
             </div>
           </div>
 
-          <a 
-            href="https://flydry.co.uk/book#/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button 
+            onClick={() => window.location.href = 'https://flydry.co.uk/book#/'}
             className="w-full flex items-center justify-center gap-2 bg-[#114232] text-[#C5A059] py-4 px-6 rounded-xl font-bold text-[16px] hover:bg-[#0a2b20] transition-colors shadow-md"
           >
             Book Pick Up &rarr;
-          </a>
+          </button>
         </div>
 
       </div>
