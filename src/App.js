@@ -492,7 +492,7 @@ export default function FlyDryEstimator() {
             </span>
           </div>
           
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mb-5">
             {hasStains && (
               <div className="flex items-start gap-2 bg-[#C5A059]/10 border border-[#C5A059]/30 p-3 rounded-lg">
                 <Info className="text-[#9b7e46] shrink-0 mt-0.5" size={14} />
@@ -508,6 +508,15 @@ export default function FlyDryEstimator() {
               </p>
             </div>
           </div>
+
+          <a 
+            href="https://flydry.co.uk/book#/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-center gap-2 bg-[#114232] text-[#C5A059] py-4 px-6 rounded-xl font-bold text-[16px] hover:bg-[#0a2b20] transition-colors shadow-md"
+          >
+            Book Pick Up &rarr;
+          </a>
         </div>
 
       </div>
