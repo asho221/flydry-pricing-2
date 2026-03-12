@@ -511,12 +511,13 @@ export default function FlyDryEstimator() {
             </div>
           </div>
 
-          <button 
-            onClick={() => window.location.href = 'https://flydry.co.uk/book#/'}
+          <a 
+            href="https://flydry.co.uk/book#/"
+            target="_top"
             className="w-full flex items-center justify-center gap-2 bg-[#114232] text-[#C5A059] py-4 px-6 rounded-xl font-bold text-[16px] hover:bg-[#0a2b20] transition-colors shadow-md"
           >
             Book Pick Up &rarr;
-          </button>
+          </a>
         </div>
 
       </div>
