@@ -175,7 +175,7 @@ export default function FlyDryEstimator() {
   const visibleItems = getVisibleItems();
 
   return (
-    <div className="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden flex flex-col md:flex-row font-sans text-gray-800 h-[85vh] min-h-[600px] md:h-[800px]">
+    <div className="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden flex flex-col md:flex-row font-sans text-gray-800 h-[90vh] min-h-[600px] md:h-[800px]">
       
       {/* LEFT PANE: Guided Service Menu */}
       <div className="flex-1 flex flex-col bg-gray-50 border-r border-gray-200">
@@ -284,110 +284,110 @@ export default function FlyDryEstimator() {
       {/* RIGHT PANE: The Live Basket & Options */}
       <div className="w-full md:w-[420px] bg-gray-50/50 flex flex-col border-l border-gray-200">
         
-        <div className="p-6 border-b border-gray-200 bg-white flex justify-between items-center shadow-sm z-10">
+        {/* HEADER (Fixed) */}
+        <div className="p-4 sm:p-5 border-b border-gray-200 bg-white flex justify-between items-center shadow-sm z-10 shrink-0">
           <h3 className="font-bold text-gray-800 text-lg">Your Basket</h3>
           <span className="text-xs font-bold bg-[#114232] text-white px-2.5 py-1 rounded-full shadow-sm">
             {cart.reduce((sum, item) => sum + item.qty, 0)} Items
           </span>
         </div>
 
-        {/* Easy Multiple Choice Options */}
-        <div className="p-5 border-b border-gray-200 bg-white space-y-5">
-          <div>
-            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2.5">Service Preference</p>
-            <div className="flex gap-2">
-              <button 
-                onClick={() => setDeliveryMode('pickup')}
-                className={`flex-1 flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-xl border-2 transition-all ${deliveryMode === 'pickup' ? 'border-[#114232] bg-[#114232]/5 text-[#114232]' : 'border-gray-100 hover:border-gray-300 text-gray-500'}`}
-              >
-                <Truck size={18} />
-                <span className="text-xs font-bold">Collection</span>
-              </button>
-              <button 
-                onClick={() => setDeliveryMode('store')}
-                className={`flex-1 flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-xl border-2 transition-all ${deliveryMode === 'store' ? 'border-[#114232] bg-[#114232]/5 text-[#114232]' : 'border-gray-100 hover:border-gray-300 text-gray-500'}`}
-              >
-                <Store size={18} />
-                <span className="text-xs font-bold">Store Drop-off</span>
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2.5">Any Heavy Stains?</p>
-            <div className="flex gap-2">
-              <button 
-                onClick={() => setHasStains(false)}
-                className={`flex-1 py-2.5 rounded-xl border-2 font-bold text-sm transition-all ${!hasStains ? 'border-[#114232] bg-[#114232] text-white shadow-md' : 'border-gray-100 hover:border-gray-300 text-gray-500'}`}
-              >
-                No Stains
-              </button>
-              <button 
-                onClick={() => setHasStains(true)}
-                className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 font-bold text-sm transition-all ${hasStains ? 'border-[#C5A059] bg-[#C5A059]/10 text-[#9b7e46]' : 'border-gray-100 hover:border-gray-300 text-gray-500'}`}
-              >
-                <Droplet size={14} /> Yes
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2.5">Discount Code</p>
-            <div className="flex gap-2">
-              <div className="flex bg-gray-50 rounded-xl p-1 border border-gray-200">
+        {/* COMBINED SCROLLABLE AREA - Prevents cart items from being squished! */}
+        <div className="flex-1 overflow-y-auto">
+          
+          {/* Easy Multiple Choice Options */}
+          <div className="p-4 sm:p-5 border-b border-gray-200 bg-white space-y-4">
+            <div>
+              <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">Service Preference</p>
+              <div className="flex gap-2">
                 <button 
-                  onClick={() => setDiscountType('percent')}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${discountType === 'percent' ? 'bg-white shadow-sm text-[#114232]' : 'text-gray-500 hover:text-gray-800'}`}
-                >%</button>
+                  onClick={() => setDeliveryMode('pickup')}
+                  className={`flex-1 flex flex-col items-center justify-center gap-1 py-2 px-2 rounded-xl border-2 transition-all ${deliveryMode === 'pickup' ? 'border-[#114232] bg-[#114232]/5 text-[#114232]' : 'border-gray-100 hover:border-gray-300 text-gray-500'}`}
+                >
+                  <Truck size={18} />
+                  <span className="text-xs font-bold">Collection</span>
+                </button>
                 <button 
-                  onClick={() => setDiscountType('amount')}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${discountType === 'amount' ? 'bg-white shadow-sm text-[#114232]' : 'text-gray-500 hover:text-gray-800'}`}
-                >£</button>
+                  onClick={() => setDeliveryMode('store')}
+                  className={`flex-1 flex flex-col items-center justify-center gap-1 py-2 px-2 rounded-xl border-2 transition-all ${deliveryMode === 'store' ? 'border-[#114232] bg-[#114232]/5 text-[#114232]' : 'border-gray-100 hover:border-gray-300 text-gray-500'}`}
+                >
+                  <Store size={18} />
+                  <span className="text-xs font-bold">Store Drop-off</span>
+                </button>
               </div>
-              <input 
-                type="number" 
-                placeholder={discountType === 'percent' ? 'e.g. 10' : 'e.g. 5.00'}
-                value={discountValue}
-                onChange={(e) => setDiscountValue(e.target.value)}
-                min="0"
-                className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm font-bold focus:outline-none focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059] transition-all"
-              />
+            </div>
+
+            <div>
+              <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">Any Heavy Stains?</p>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setHasStains(false)}
+                  className={`flex-1 py-2 rounded-xl border-2 font-bold text-sm transition-all ${!hasStains ? 'border-[#114232] bg-[#114232] text-white shadow-md' : 'border-gray-100 hover:border-gray-300 text-gray-500'}`}
+                >
+                  No Stains
+                </button>
+                <button 
+                  onClick={() => setHasStains(true)}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl border-2 font-bold text-sm transition-all ${hasStains ? 'border-[#C5A059] bg-[#C5A059]/10 text-[#9b7e46]' : 'border-gray-100 hover:border-gray-300 text-gray-500'}`}
+                >
+                  <Droplet size={14} /> Yes
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">Discount Code</p>
+              <div className="flex gap-2">
+                <div className="flex bg-gray-50 rounded-xl p-1 border border-gray-200">
+                  <button 
+                    onClick={() => setDiscountType('percent')}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${discountType === 'percent' ? 'bg-white shadow-sm text-[#114232]' : 'text-gray-500 hover:text-gray-800'}`}
+                  >%</button>
+                  <button 
+                    onClick={() => setDiscountType('amount')}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${discountType === 'amount' ? 'bg-white shadow-sm text-[#114232]' : 'text-gray-500 hover:text-gray-800'}`}
+                  >£</button>
+                </div>
+                <input 
+                  type="number" 
+                  placeholder={discountType === 'percent' ? 'e.g. 10' : 'e.g. 5.00'}
+                  value={discountValue}
+                  onChange={(e) => setDiscountValue(e.target.value)}
+                  min="0"
+                  className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm font-bold focus:outline-none focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059] transition-all"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Cart Items */}
-        <div className="flex-1 p-5 overflow-y-auto">
-          {cart.length === 0 ? (
-            <div className="text-center text-gray-400 mt-10 flex flex-col items-center gap-3">
-              <Shirt size={40} className="opacity-20 mb-2" />
-              <p className="text-sm font-medium px-6">Select items from the menu to build your estimate.</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {cart.map(item => {
-                let lineTotal = 0;
-                let showPromo = false;
-                if (item.bundle && item.qty >= item.bundle.qty) {
-                   const bundles = Math.floor(item.qty / item.bundle.qty);
-                   const singles = item.qty % item.bundle.qty;
-                   lineTotal = (bundles * item.bundle.price) + (singles * item.price);
-                   showPromo = true;
-                } else {
-                   lineTotal = item.price * item.qty;
-                }
+          {/* Cart Items */}
+          <div className="p-4 sm:p-5 bg-gray-50/50">
+            {cart.length === 0 ? (
+              <div className="text-center text-gray-400 mt-10 flex flex-col items-center gap-3">
+                <Shirt size={40} className="opacity-20 mb-2" />
+                <p className="text-sm font-medium px-6">Select items from the menu to build your estimate.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {cart.map(item => {
+                  let lineTotal = 0;
+                  let showPromo = false;
+                  if (item.bundle && item.qty >= item.bundle.qty) {
+                     const bundles = Math.floor(item.qty / item.bundle.qty);
+                     const singles = item.qty % item.bundle.qty;
+                     lineTotal = (bundles * item.bundle.price) + (singles * item.price);
+                     showPromo = true;
+                  } else {
+                     lineTotal = item.price * item.qty;
+                  }
 
-                // Identify if it's a repair or home item for badge
-                const isRepair = item.id.startsWith('r_');
-                const isHome = item.id.startsWith('h_');
-                const isIroning = item.id.startsWith('i_');
+                  // Identify if it's a repair or home item for badge
+                  const isRepair = item.id.startsWith('r_');
+                  const isHome = item.id.startsWith('h_');
+                  const isIroning = item.id.startsWith('i_');
 
-                return (
-                  <div key={item.id} className="group border border-gray-200 bg-white rounded-xl p-3 shadow-sm hover:border-[#C5A059] transition-colors relative overflow-hidden">
-                    
-                    {/* Category Color Bar */}
-                    <div className={`absolute left-0 top-0 bottom-0 w-1 ${isRepair ? 'bg-[#C5A059]' : isHome ? 'bg-blue-400' : isIroning ? 'bg-purple-400' : 'bg-[#114232]'}`}></div>
-
+                  return (
+                    <div key={item.id} className="group border border-gray-200 bg-white rounded-xl p-3 shadow-sm hover:border-[#C5A059] transition-colors relative overflow-hidden">
                     <div className="flex justify-between items-start mb-3 pl-2">
                       <div>
                         {isRepair && <span className="text-[9px] font-bold text-[#C5A059] uppercase tracking-wider block mb-0.5">Alteration</span>}
@@ -425,10 +425,11 @@ export default function FlyDryEstimator() {
               })}
             </div>
           )}
+          </div>
         </div>
 
-        {/* Total & Disclaimer */}
-        <div className="p-6 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] z-10">
+        {/* Total & Disclaimer (Fixed at Bottom) */}
+        <div className="p-4 sm:p-5 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] z-10 shrink-0">
           
           {/* Free Delivery Upsell Prompt */}
           {cart.length > 0 && deliveryMode === 'pickup' && totals.subtotal < 50 && (
