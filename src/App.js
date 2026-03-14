@@ -230,28 +230,28 @@ export default function FlyDryEstimator() {
 
           {/* Category Tabs (Hide if searching) */}
           {!searchQuery && (
-            <div className="flex px-4 pt-4 gap-2 bg-gray-50 border-b border-gray-200 overflow-x-auto shrink-0">
+            <div className="flex flex-wrap px-4 py-4 gap-2 bg-gray-50 border-b border-gray-200 shrink-0">
               <button 
                 onClick={() => setActiveCategory('cleaning')}
-                className={`flex items-center gap-2 px-5 py-3 font-bold text-sm rounded-t-xl transition-colors whitespace-nowrap ${activeCategory === 'cleaning' ? 'bg-white text-[#114232] border-t border-l border-r border-gray-200 shadow-[0_-2px_4px_rgba(0,0,0,0.02)]' : 'text-gray-500 hover:text-gray-800'}`}
+                className={`flex items-center gap-2 px-4 py-2 font-bold text-sm rounded-full transition-all whitespace-nowrap ${activeCategory === 'cleaning' ? 'bg-[#114232] text-[#C5A059] shadow-md' : 'bg-white border border-gray-200 text-gray-500 hover:border-[#C5A059] hover:text-[#114232]'}`}
               >
                 <Shirt size={16} /> Clean & Press
               </button>
               <button 
                 onClick={() => setActiveCategory('repairs')}
-                className={`flex items-center gap-2 px-5 py-3 font-bold text-sm rounded-t-xl transition-colors whitespace-nowrap ${activeCategory === 'repairs' ? 'bg-white text-[#114232] border-t border-l border-r border-gray-200 shadow-[0_-2px_4px_rgba(0,0,0,0.02)]' : 'text-gray-500 hover:text-gray-800'}`}
+                className={`flex items-center gap-2 px-4 py-2 font-bold text-sm rounded-full transition-all whitespace-nowrap ${activeCategory === 'repairs' ? 'bg-[#114232] text-[#C5A059] shadow-md' : 'bg-white border border-gray-200 text-gray-500 hover:border-[#C5A059] hover:text-[#114232]'}`}
               >
                 <Scissors size={16} /> Alterations & Repairs
               </button>
               <button 
                 onClick={() => setActiveCategory('home')}
-                className={`flex items-center gap-2 px-5 py-3 font-bold text-sm rounded-t-xl transition-colors whitespace-nowrap ${activeCategory === 'home' ? 'bg-white text-[#114232] border-t border-l border-r border-gray-200 shadow-[0_-2px_4px_rgba(0,0,0,0.02)]' : 'text-gray-500 hover:text-gray-800'}`}
+                className={`flex items-center gap-2 px-4 py-2 font-bold text-sm rounded-full transition-all whitespace-nowrap ${activeCategory === 'home' ? 'bg-[#114232] text-[#C5A059] shadow-md' : 'bg-white border border-gray-200 text-gray-500 hover:border-[#C5A059] hover:text-[#114232]'}`}
               >
                 <Home size={16} /> Bedding & Home
               </button>
               <button 
                 onClick={() => setActiveCategory('ironing')}
-                className={`flex items-center gap-2 px-5 py-3 font-bold text-sm rounded-t-xl transition-colors whitespace-nowrap ${activeCategory === 'ironing' ? 'bg-white text-[#114232] border-t border-l border-r border-gray-200 shadow-[0_-2px_4px_rgba(0,0,0,0.02)]' : 'text-gray-500 hover:text-gray-800'}`}
+                className={`flex items-center gap-2 px-4 py-2 font-bold text-sm rounded-full transition-all whitespace-nowrap ${activeCategory === 'ironing' ? 'bg-[#114232] text-[#C5A059] shadow-md' : 'bg-white border border-gray-200 text-gray-500 hover:border-[#C5A059] hover:text-[#114232]'}`}
               >
                 <Wind size={16} /> Iron Only
               </button>
